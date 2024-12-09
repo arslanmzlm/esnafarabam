@@ -50,6 +50,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('neighborhoods');
+        Schema::dropIfExists('districts');
+        Schema::dropIfExists('provinces');
     }
 };

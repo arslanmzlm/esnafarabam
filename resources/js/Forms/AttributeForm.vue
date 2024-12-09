@@ -101,6 +101,7 @@ function optionLabel(item: AttributeCategory) {
                 <div class="text-lg">Değerler</div>
                 <template v-for="(_, index) in form.values" :key="index">
                     <div class="flex gap-2">
+                        <!-- @vue-ignore -->
                         <InputBox
                             v-model="form.values[index]['value']"
                             :error="form.errors[`values.${index}.value`]"

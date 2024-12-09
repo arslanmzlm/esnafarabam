@@ -11,40 +11,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('key')
-                ->nullable()
-                ->unique();
-            $table->string('name');
-            $table->string('description')
-                ->nullable();
-            $table->boolean('admin')
-                ->default(false);
-            $table->timestamps();
-        });
-
-        Schema::create('abilities', function (Blueprint $table) {
-            $table->id();
-            $table->string('key');
-            $table->string('title');
-            $table->string('description')
-                ->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('ability_role', function (Blueprint $table) {
-            $table->foreignId('role_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->foreignId('ability_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->timestamps();
-        });
-
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')
@@ -116,6 +82,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
+        Schema::dropIfExists('profiles');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

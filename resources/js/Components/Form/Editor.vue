@@ -9,6 +9,7 @@ import {
     Autosave,
     Bold,
     ClassicEditor,
+    EditorConfig,
     Essentials,
     FindAndReplace,
     FontBackgroundColor,
@@ -74,7 +75,7 @@ withDefaults(
 
 const model = defineModel<string | null>({required: true});
 
-const config = {
+const config: EditorConfig = {
     toolbar: {
         items: [
             'undo',
@@ -117,7 +118,6 @@ const config = {
         AutoLink,
         Autosave,
         Bold,
-        ClassicEditor,
         Essentials,
         FindAndReplace,
         FontBackgroundColor,
@@ -221,7 +221,10 @@ const config = {
         <label v-if="label" class="mb-3 block text-sm font-medium text-black dark:text-white"
             >{{ label }} <span v-if="required" class="text-danger">*</span></label
         >
-        <Ckeditor v-model="model" :config :editor="ClassicEditor"></Ckeditor>
+
+        <!-- @vue-ignore -->
+        <Ckeditor v-if="model" v-model="model" :config :editor="ClassicEditor"></Ckeditor>
+
         <InvalidFeedback v-if="error" :message="error" />
     </div>
 </template>

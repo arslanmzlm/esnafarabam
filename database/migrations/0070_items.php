@@ -89,6 +89,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('item_photos');
+        Schema::dropIfExists('item_attributes');
+        Schema::dropIfExists('items');
     }
 };

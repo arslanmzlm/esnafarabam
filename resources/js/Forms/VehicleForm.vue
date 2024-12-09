@@ -42,8 +42,7 @@ function getAttributeError(attribute_id: number): string | null {
         });
     }
 
-    props.form.hasErrors;
-
+    // @ts-ignore
     return props.form.errors[`attributes.${index}.value`] ?? null;
 }
 </script>

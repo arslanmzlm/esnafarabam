@@ -115,6 +115,7 @@ function getAttributeError(attribute_id: number) {
         return attribute.attribute_id === attribute_id;
     });
 
+    // @ts-ignore
     return props.form.errors[`attributes.${index}.value`] ?? null;
 }
 </script>
@@ -214,6 +215,8 @@ function getAttributeError(attribute_id: number) {
                         <ImagePlusIcon class="mx-auto size-15" />
                         <span class="mt-2 inline-block text-lg font-bold">Fotoğraf Ekle</span>
                     </label>
+
+                    <!-- @vue-ignore -->
                     <input
                         id="fileItemPhotos"
                         :disabled="form.photos.length === 15"

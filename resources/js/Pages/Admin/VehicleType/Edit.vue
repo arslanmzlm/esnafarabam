@@ -28,7 +28,7 @@ const form = useForm<VehicleTypeFormType>({
 });
 
 function submit() {
-    form.post(route('admin.vehicle.type.update', vehicleType));
+    form.post(route('admin.vehicle.type.update', {id: vehicleType.id}));
 }
 </script>
 
