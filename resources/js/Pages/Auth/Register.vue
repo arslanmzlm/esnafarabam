@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {Link, useForm} from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import {computed, watch} from 'vue';
 import {Province} from '@/types/model';
 import GuestLayout from '@/Layouts/GuestAuthLayout.vue';
@@ -42,6 +42,8 @@ function submit() {
 </script>
 
 <template>
+    <Head title="Kayıt Ol" />
+
     <GuestLayout>
         <div class="mx-auto bg-white p-10 shadow-md sm:max-w-xl sm:rounded-lg">
             <span class="mb-1.5 block font-medium">Ücretsiz kayıt olarak fırsatları kaçırma!</span>

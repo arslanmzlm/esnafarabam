@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {Link, useForm} from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import GuestLayout from '@/Layouts/GuestAuthLayout.vue';
 import InputBox from '@/Components/Form/InputBox.vue';
 import VButton from '@/Components/VButton.vue';
@@ -15,6 +15,8 @@ function submit() {
 </script>
 
 <template>
+    <Head title="Giriş Yap" />
+
     <GuestLayout>
         <div class="mx-auto bg-white p-10 shadow-md sm:max-w-xl sm:rounded-lg">
             <span class="mb-1.5 block font-medium">En iyi ilanları kaçırma.</span>
