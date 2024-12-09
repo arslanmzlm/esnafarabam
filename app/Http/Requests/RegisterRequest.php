@@ -37,7 +37,7 @@ class RegisterRequest extends FormRequest
             'phone' => 'required|phone:TR|unique:users,phone',
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
-            'tax_identity' => 'required|string|min:3|max:255|unique:users,tax_identity',
+            'tax_identity' => 'required|string|min:3|max:255|unique:profiles,tax_identity',
             'password' => ['required', 'confirmed', new Password(5)],
         ];
     }
