@@ -1,0 +1,23 @@
+{
+    "plugins": [
+        "@ianvs/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ],
+    "importOrder": [
+        "<BUILTIN_MODULES>",
+        "<THIRD_PARTY_MODULES>",
+        "<TYPES>",
+        "^@/types/(.*)$",
+        "^@/Stores/(.*)$",
+        "^@/Layouts/(.*)$",
+        "^@/Forms/(.*)$",
+        "^@/Components/(.*)$",
+        "^@/Icons/(.*)$",
+        "^@/Utilities/(.*)$",
+        "^@/Images/(.*)$",
+        "^[./]"
+    ],
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "printWidth": 100
+}

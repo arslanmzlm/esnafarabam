@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use libphonenumber\PhoneNumberFormat;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +21,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
+        'phone',
         'password',
+        'state',
+        'role_id',
+        'active_at',
+        'remember_token',
     ];
 
     /**
@@ -32,6 +41,25 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['phone_formatted'];
+
+    protected $with = ['profile'];
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function getPhoneFormattedAttribute(): string
+    {
+        return phone($this->phone, 'TR', PhoneNumberFormat::NATIONAL);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -40,8 +68,9 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'phone' => E164PhoneNumberCast::class . ':TR',
+            'active_at' => 'datetime',
         ];
     }
 }

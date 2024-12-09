@@ -1,23 +1,97 @@
 <?php
 
+use App\Enums\UserState;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('key')
+                ->nullable()
+                ->unique();
+            $table->string('name');
+            $table->string('description')
+                ->nullable();
+            $table->boolean('admin')
+                ->default(false);
+            $table->timestamps();
+        });
+
+        Schema::create('abilities', function (Blueprint $table) {
+            $table->id();
+            $table->string('key');
+            $table->string('title');
+            $table->string('description')
+                ->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('ability_role', function (Blueprint $table) {
+            $table->foreignId('role_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('ability_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->timestamps();
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('username')
+                ->nullable()
+                ->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->unique();
             $table->string('password');
+            $table->unsignedTinyInteger('state')
+                ->default(UserState::PENDING);
+            $table->foreignId('role_id')
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->dateTime('active_at')
+                ->nullable();
             $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->string('name');
+            $table->string('surname');
+            $table->string('company')
+                ->nullable();
+            $table->string('company_phone')
+                ->nullable();
+            $table->string('address')
+                ->nullable();
+            $table->string('tax_identity')
+                ->nullable();
+            $table->foreignId('province_id')
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('district_id')
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
 

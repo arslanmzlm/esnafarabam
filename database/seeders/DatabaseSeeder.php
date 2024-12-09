@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
+use App\Models\Province;
+use App\Models\Role;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +17,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $adminRole = Role::factory()->isAdmin()->create(['name' => 'Admin']);
+        Role::factory()->create(['name' => 'User']);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $province = Province::create([
+            'name' => 'Test Province',
+            'code' => 1,
+            'title' => 'Test Province',
+            'slug' => 'test-province'
+        ]);
+
+        $district = $province->districts()->create([
+            'name' => 'Test District',
+            'title' => 'Test District',
+            'slug' => 'test-district',
+        ]);
+
+        $district->neighborhoods()->create([
+            'name' => 'Test Neighborhood',
+            'title' => 'Test Neighborhood',
+            'slug' => 'test-neighborhood',
+        ]);
+
+        $user = User::factory()->create([
+            'username' => 'admin',
+            'email' => 'admin@mail.com',
+            'role_id' => $adminRole->id,
+        ]);
+
+        Profile::factory()->create([
+            'user_id' => $user->id,
+            'province_id' => $province->id,
+            'district_id' => $district->id,
         ]);
     }
 }
