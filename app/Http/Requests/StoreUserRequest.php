@@ -44,7 +44,7 @@ class StoreUserRequest extends FormRequest
             'company' => 'nullable|string|min:3|max:255',
             'company_phone' => 'nullable|phone:TR',
             'address' => 'nullable|string|min:3|max:255',
-            'tax_identity' => 'nullable|string|min:3|max:255|unique:users,tax_identity',
+            'tax_identity' => 'nullable|string|min:3|max:255|unique:profiles,tax_identity',
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
         ];
