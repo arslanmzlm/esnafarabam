@@ -75,6 +75,10 @@
                     <div class="flex items-stretch">
                         <input name="old_password" class="form-input" type="password" />
                     </div>
+
+                    @error('old_password')
+                        <div class="mt-2 text-sm text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
@@ -84,6 +88,10 @@
                     <div class="flex items-stretch">
                         <input class="form-input" type="password" />
                     </div>
+
+                    @error('password')
+                        <div class="mt-2 text-sm text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
@@ -119,7 +127,7 @@
                         />
                     </div>
 
-                    @error('old_password')
+                    @error('name')
                         <div class="mt-2 text-sm text-danger">{{ $message }}</div>
                     @enderror
                 </div>

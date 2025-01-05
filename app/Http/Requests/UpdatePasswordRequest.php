@@ -24,7 +24,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'old_password' => 'required',
-            'password' => ['nullable', 'confirmed', new Password(5)],
+            'password' => ['required', 'confirmed', new Password(5)],
         ];
     }
 }
