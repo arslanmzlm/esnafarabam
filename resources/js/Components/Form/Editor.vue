@@ -1,65 +1,6 @@
 <script lang="ts" setup>
-import {Ckeditor} from '@ckeditor/ckeditor5-vue';
-import {
-    AccessibilityHelp,
-    Alignment,
-    Autoformat,
-    AutoImage,
-    AutoLink,
-    Autosave,
-    Bold,
-    ClassicEditor,
-    EditorConfig,
-    Essentials,
-    FindAndReplace,
-    FontBackgroundColor,
-    FontColor,
-    FontSize,
-    GeneralHtmlSupport,
-    Heading,
-    Highlight,
-    HorizontalLine,
-    Image,
-    ImageBlock,
-    ImageCaption,
-    ImageInline,
-    ImageInsertViaUrl,
-    ImageResize,
-    ImageStyle,
-    ImageTextAlternative,
-    ImageToolbar,
-    ImageUpload,
-    Italic,
-    Link,
-    LinkImage,
-    List,
-    ListProperties,
-    MediaEmbed,
-    Paragraph,
-    PasteFromMarkdownExperimental,
-    PasteFromOffice,
-    RemoveFormat,
-    SelectAll,
-    SpecialCharacters,
-    SpecialCharactersArrows,
-    SpecialCharactersCurrency,
-    SpecialCharactersEssentials,
-    SpecialCharactersLatin,
-    SpecialCharactersMathematical,
-    SpecialCharactersText,
-    Strikethrough,
-    Table,
-    TableCaption,
-    TableCellProperties,
-    TableColumnResize,
-    TableProperties,
-    TableToolbar,
-    TextTransformation,
-    Underline,
-    Undo,
-} from 'ckeditor5';
-import translations from 'ckeditor5/translations/tr.js';
-import 'ckeditor5/ckeditor5.css';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import {QuillEditor} from '@vueup/vue-quill';
 import InvalidFeedback from '@/Components/Form/InvalidFeedback.vue';
 
 withDefaults(
@@ -73,147 +14,18 @@ withDefaults(
     },
 );
 
-const model = defineModel<string | null>({required: true});
+const toolbar = [
+    [{header: [2, 3, 4, 5, 6, false]}],
+    [{size: ['small', false, 'large', 'huge']}],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{align: []}],
+    [{color: []}, {background: []}],
+    ['link', 'video'],
+    [{list: 'ordered'}, {list: 'bullet'}],
+    ['clean'],
+];
 
-const config: EditorConfig = {
-    toolbar: {
-        items: [
-            'undo',
-            'redo',
-            'findAndReplace',
-            '|',
-            'heading',
-            '|',
-            'bold',
-            'italic',
-            'underline',
-            'strikethrough',
-            'removeFormat',
-            '|',
-            'fontSize',
-            'fontColor',
-            'fontBackgroundColor',
-            'highlight',
-            '|',
-            'specialCharacters',
-            'horizontalLine',
-            'link',
-            'insertImageViaUrl',
-            'mediaEmbed',
-            'insertTable',
-            '|',
-            'alignment',
-            '|',
-            'bulletedList',
-            'numberedList',
-            'accessibilityHelp',
-        ],
-        shouldNotGroupWhenFull: false,
-    },
-    plugins: [
-        AccessibilityHelp,
-        Alignment,
-        Autoformat,
-        AutoImage,
-        AutoLink,
-        Autosave,
-        Bold,
-        Essentials,
-        FindAndReplace,
-        FontBackgroundColor,
-        FontColor,
-        FontSize,
-        GeneralHtmlSupport,
-        Heading,
-        Highlight,
-        HorizontalLine,
-        Image,
-        ImageBlock,
-        ImageCaption,
-        ImageInline,
-        ImageInsertViaUrl,
-        ImageResize,
-        ImageStyle,
-        ImageTextAlternative,
-        ImageToolbar,
-        ImageUpload,
-        Italic,
-        Link,
-        LinkImage,
-        List,
-        ListProperties,
-        MediaEmbed,
-        Paragraph,
-        PasteFromMarkdownExperimental,
-        PasteFromOffice,
-        RemoveFormat,
-        SelectAll,
-        SpecialCharacters,
-        SpecialCharactersArrows,
-        SpecialCharactersCurrency,
-        SpecialCharactersEssentials,
-        SpecialCharactersLatin,
-        SpecialCharactersMathematical,
-        SpecialCharactersText,
-        Strikethrough,
-        Table,
-        TableCaption,
-        TableCellProperties,
-        TableColumnResize,
-        TableProperties,
-        TableToolbar,
-        TextTransformation,
-        Underline,
-        Undo,
-    ],
-    fontSize: {
-        options: [10, 12, 14, 'default', 18, 20, 22],
-        supportAllValues: true,
-    },
-    image: {
-        toolbar: [
-            'toggleImageCaption',
-            'imageTextAlternative',
-            '|',
-            'imageStyle:inline',
-            'imageStyle:wrapText',
-            'imageStyle:breakText',
-            '|',
-            'resizeImage',
-        ],
-    },
-    language: 'tr',
-    link: {
-        addTargetToExternalLinks: true,
-        defaultProtocol: 'https://',
-        decorators: {
-            toggleDownloadable: {
-                mode: 'manual',
-                label: 'Downloadable',
-                attributes: {
-                    download: 'file',
-                },
-            },
-        },
-    },
-    list: {
-        properties: {
-            styles: true,
-            startIndex: true,
-            reversed: true,
-        },
-    },
-    table: {
-        contentToolbar: [
-            'tableColumn',
-            'tableRow',
-            'mergeTableCells',
-            'tableProperties',
-            'tableCellProperties',
-        ],
-    },
-    translations: [translations],
-};
+const model = defineModel<string | null>({required: true});
 </script>
 
 <template>
@@ -222,8 +34,9 @@ const config: EditorConfig = {
             >{{ label }} <span v-if="required" class="text-danger">*</span></label
         >
 
-        <!-- @vue-ignore -->
-        <Ckeditor v-if="model" v-model="model" :config :editor="ClassicEditor"></Ckeditor>
+        <QuillEditor v-model:content="model" :toolbar content-type="html" theme="snow" />
+
+        <div><small>Görsel eklemek için görselin URL'ini yapıştırın.</small></div>
 
         <InvalidFeedback v-if="error" :message="error" />
     </div>

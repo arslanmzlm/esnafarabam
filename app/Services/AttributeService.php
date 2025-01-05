@@ -25,26 +25,6 @@ class AttributeService
         return $attribute->fresh();
     }
 
-    public function update(Attribute $attribute, array $data): ?Attribute
-    {
-        $attribute = $this->assignAttribute($attribute, $data);
-
-        if (!empty($data['values']) && is_array($data['values'])) {
-            $this->updateValues($attribute, $data['values']);
-        } else if (
-            $attribute->values()->exists() && (empty($data['values']) || !$attribute->hasValues())
-        ) {
-            $attribute->values()->delete();
-        }
-
-        return $attribute->fresh();
-    }
-
-    public function delete(Attribute $attribute): ?bool
-    {
-        return $attribute->delete();
-    }
-
     private function assignAttribute(Attribute $attribute, array $data): ?Attribute
     {
         $attribute->active = $data['active'] ?? false;
@@ -68,6 +48,21 @@ class AttributeService
         }
     }
 
+    public function update(Attribute $attribute, array $data): ?Attribute
+    {
+        $attribute = $this->assignAttribute($attribute, $data);
+
+        if (!empty($data['values']) && is_array($data['values'])) {
+            $this->updateValues($attribute, $data['values']);
+        } else if (
+            $attribute->values()->exists() && (empty($data['values']) || !$attribute->hasValues())
+        ) {
+            $attribute->values()->delete();
+        }
+
+        return $attribute->fresh();
+    }
+
     private function updateValues(Attribute $attribute, array $values): void
     {
         $ids = collect($values)->whereNotNull('id')->pluck('id')->toArray();
@@ -79,6 +74,11 @@ class AttributeService
                 ['value' => $item['value']]
             );
         }
+    }
+
+    public function delete(Attribute $attribute): ?bool
+    {
+        return $attribute->delete();
     }
 
     /**
@@ -146,6 +146,7 @@ class AttributeService
                 $query->where('vehicle_type_id', $vehicle_type_id)
                     ->orWhereNull('vehicle_type_id');
             })
+            ->orderBy('order')
             ->get()
             ->load('attributes.values');
 
@@ -181,6 +182,10 @@ class AttributeService
                     }
 
                     if (!empty($value)) {
+                        if (!is_array($value) && $attribute->unit) {
+                            $value .= " {$attribute->unit}";
+                        }
+
                         $attributeData = [
                             'name' => $attribute->name,
                             'value' => $value

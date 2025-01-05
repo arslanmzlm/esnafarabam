@@ -7,6 +7,8 @@ use App\Enums\ItemState;
 use App\Enums\PhotoState;
 use App\Models\Attribute;
 use App\Models\Item;
+use App\Models\VehicleType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -20,23 +22,12 @@ class ItemService
         return $this->assignAttribute($item, $data);
     }
 
-    public function update(Item $item, array $data): ?Item
-    {
-        return $this->assignAttribute($item, $data);
-    }
-
-    public function delete(Item $item): ?bool
-    {
-        return $item->delete();
-    }
-
     private function assignAttribute(Item $item, array $data): ?Item
     {
         $item->user_id = $item->user_id ?? auth()->id() ?? 1;
         $item->vehicle_id = $data['vehicle_id'] ?? $item->vehicle_id;
         $item->state = $item->state ?? ItemState::DRAFT;
         $item->title = $data['title'];
-        $item->slug = Str::slug($data['title']) . rand(1000, 9999);
         $item->price = intval($data['price']);
         $item->kilometer = intval($data['kilometer']);
         $item->description = $data['description'];
@@ -46,8 +37,12 @@ class ItemService
 
         $item->save();
 
-        $this->updateAttributes($item, $data['attributes']);
-        $this->uploadImages($item, $data['photos']);
+        $item->slug = Str::slug($data['slug'] ?? $data['title']) . "-{$item->id}";
+
+        $item->save();
+
+        if (!empty($data['attributes'])) $this->updateAttributes($item, $data['attributes']);
+        if (!empty($data['photos'])) $this->uploadImages($item, $data['photos']);
 
         return $item->fresh();
     }
@@ -82,6 +77,11 @@ class ItemService
                 $item->attributes()->updateOrCreate(['id' => $row['id']], $create);
             }
         }
+    }
+
+    public function delete(Item $item): ?bool
+    {
+        return $item->delete();
     }
 
     public function uploadImages(Item $item, array $photos): void
@@ -140,6 +140,11 @@ class ItemService
         $this->reOrderPhotos($item);
     }
 
+    public function update(Item $item, array $data): ?Item
+    {
+        return $this->assignAttribute($item, $data);
+    }
+
     private function reOrderPhotos(Item $item): void
     {
         foreach ($item->photos as $index => $photo) {
@@ -193,5 +198,27 @@ class ItemService
         if ($reOrder) {
             $this->reOrderPhotos($item);
         }
+    }
+
+    public function getActive(?int $limit = null)
+    {
+        return Item::where('state', ItemState::PUBLISHED)->limit($limit)->get();
+    }
+
+    public function getActiveByType(VehicleType $vehicleType, ?int $limit = null)
+    {
+        return Item::whereRelation('vehicle', 'vehicle_type_id', $vehicleType->id)->where('state', ItemState::PUBLISHED)->paginate($limit);
+    }
+
+    public function filter(?string $search = null, ?int $limit = null)
+    {
+        $search = "%{$search}%";
+
+        return Item::where(function (Builder $query) use ($search) {
+            $query->orWhere('id', $search);
+            $query->orWhereLike('description', $search);
+            $query->orWhereLike('title', $search);
+            $query->orWhereRelation('vehicle', 'title', 'LIKE', $search);
+        })->where('state', ItemState::PUBLISHED)->paginate($limit);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserState;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -20,6 +21,13 @@ class UserController extends Controller
     {
         return Inertia::render('Admin/User/List', [
             'users' => User::all()
+        ]);
+    }
+
+    public function listPending()
+    {
+        return Inertia::render('Admin/User/PendingList', [
+            'users' => User::where('state', UserState::PENDING)->get()->load(['profile.province', 'profile.district'])
         ]);
     }
 
@@ -63,5 +71,18 @@ class UserController extends Controller
         session()->flash('toast.success', trans('messages.user.deleted'));
 
         return to_route('admin.user.list');
+    }
+
+    public function approve(User $user)
+    {
+        $approve = $this->userService->approveUser($user);
+
+        if ($approve) {
+            session()->flash('toast.success', trans('messages.user.approved'));
+        } else {
+            session()->flash('toast.false', trans('messages.user.not_approved'));
+        }
+
+        return back();
     }
 }

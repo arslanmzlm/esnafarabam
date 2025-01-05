@@ -1,11 +1,14 @@
 import {
     AttributeInput,
     AttributeType,
+    BannerField,
     Fuel,
     Gear,
     ItemState,
+    PageCategory,
     PhotoState,
     StepType,
+    UserState,
 } from '@/types/enums';
 
 export interface User {
@@ -39,6 +42,8 @@ export interface Profile {
     updated_at: string;
 
     full_name: string;
+    province?: Province;
+    district?: District;
 }
 
 export interface Province {
@@ -238,4 +243,41 @@ export interface ItemPhoto {
     updated_at: string;
 
     src?: string;
+}
+
+export interface Page {
+    id: number;
+    active: boolean;
+    category: PageCategory;
+    title: string;
+    slug: string;
+    body: string | null;
+    meta_title: string | null;
+    meta_description: string | null;
+    meta_keywords: string | null;
+    created_at: string;
+    updated_at: string;
+
+    category_label?: string;
+}
+
+export interface Banner {
+    id: number;
+    active: boolean;
+    field: BannerField;
+    title: string;
+    alt_title: string | null;
+    sub_title: string | null;
+    body: string | null;
+    excerpt: string | null;
+    link_label: string | null;
+    link: string | null;
+    image: string | null;
+    mobile_image: string | null;
+    alt: string | null;
+    options: object | null;
+
+    field_label: string;
+    image_src: string | null;
+    mobile_image_src: string | null;
 }

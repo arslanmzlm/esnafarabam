@@ -1,7 +1,18 @@
 {
     "plugins": [
+        "prettier-plugin-blade",
         "@ianvs/prettier-plugin-sort-imports",
         "prettier-plugin-tailwindcss"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.blade.php"
+            ],
+            "options": {
+                "parser": "blade"
+            }
+        }
     ],
     "importOrder": [
         "<BUILTIN_MODULES>",

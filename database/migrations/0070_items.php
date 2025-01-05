@@ -26,7 +26,7 @@ return new class extends Migration {
                 ->default(ItemState::DRAFT)
                 ->index();
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('slug')->nullable()->unique();
             $table->unsignedInteger('price');
             $table->unsignedInteger('kilometer');
             $table->text('description')->nullable();

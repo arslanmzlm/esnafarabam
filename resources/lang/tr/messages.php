@@ -41,6 +41,9 @@ return [
         'created' => 'Kullanıcı başarıyla oluşturuldu.',
         'updated' => 'Kullanıcı başarıyla düzenlendi.',
         'deleted' => 'Kullanıcı başarıyla silindi.',
+        'info_updated' => 'Kullanıcı başarıyla güncellendi.',
+        'password_updated' => 'Şifre başarıyla güncellendi.',
+        'profile_updated' => 'Profil başarıyla güncellendi.',
     ],
     'vehicle' => [
         'type' => [

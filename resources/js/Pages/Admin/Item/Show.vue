@@ -77,19 +77,19 @@ function nextThumbs() {
                 </div>
 
                 <div class="relative">
-                    <div ref="thumbnails" class="flex overflow-hidden px-4 py-2">
+                    <div ref="thumbnails" class="mx-1 flex gap-1 overflow-hidden py-2">
                         <button
                             v-for="(photo, index) in item.approved_photos"
                             :key="photo.id"
-                            class="w-1/5 shrink-0"
+                            :class="index === photoIndex ? 'border-primary' : 'border-stroke'"
+                            class="w-1/5 shrink-0 border-2"
                             type="button"
                             @click="photoIndex = index"
                         >
                             <img
                                 :alt="item.title"
-                                :class="index === photoIndex ? 'border-primary' : 'border-stroke'"
                                 :src="photo.src"
-                                class="mx-auto h-20 border-2 object-cover"
+                                class="h-20 w-full object-cover"
                             />
                         </button>
                     </div>

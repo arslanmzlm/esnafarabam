@@ -48,5 +48,17 @@ return [
             'OUTDATED' => 'Zaman Aşımına Uğradı',
             'DELETED' => 'Silindi',
         ]
-    ]
+    ],
+    'page' => [
+        'category' => [
+            'COMMERCIAL' => 'Kurumsal',
+            'SERVICE' => 'Hizmetler',
+            'PRIVACY' => 'Gizlilik',
+        ]
+    ],
+    'banner' => [
+        'field' => [
+            'HOME_SLIDER' => 'Anasayfa Sliderı'
+        ]
+    ],
 ];

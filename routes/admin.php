@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Admin\AttributeCategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\NeighborhoodController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProvinceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VehicleController;
@@ -25,6 +27,9 @@ Route::prefix('admin')
         Route::get('user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
         Route::post('user/update/{user}', [UserController::class, 'update'])->name('user.update');
         Route::post('user/delete/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+        Route::get('users/pending', [UserController::class, 'listPending'])->name('user.pending.list');
+        Route::post('user/approve/{user}', [UserController::class, 'approve'])->name('user.approve');
 
         Route::get('provinces', [ProvinceController::class, 'list'])->name('province.list');
         Route::get('province/create', [ProvinceController::class, 'create'])->name('province.create');
@@ -94,4 +99,18 @@ Route::prefix('admin')
         Route::get('item/control/{item}', [ItemController::class, 'control'])->name('item.control');
         Route::post('item/evaluate/{item}', [ItemController::class, 'evaluate'])->name('item.evaluate');
         Route::post('item/delete/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
+
+        Route::get('pages', [PageController::class, 'list'])->name('page.list');
+        Route::get('page/create', [PageController::class, 'create'])->name('page.create');
+        Route::post('page/store', [PageController::class, 'store'])->name('page.store');
+        Route::get('page/edit/{page}', [PageController::class, 'edit'])->name('page.edit');
+        Route::post('page/update/{page}', [PageController::class, 'update'])->name('page.update');
+        Route::post('page/delete/{page}', [PageController::class, 'destroy'])->name('page.destroy');
+
+        Route::get('banners', [BannerController::class, 'list'])->name('banner.list');
+        Route::get('banner/create', [BannerController::class, 'create'])->name('banner.create');
+        Route::post('banner/store', [BannerController::class, 'store'])->name('banner.store');
+        Route::get('banner/edit/{banner}', [BannerController::class, 'edit'])->name('banner.edit');
+        Route::post('banner/update/{banner}', [BannerController::class, 'update'])->name('banner.update');
+        Route::post('banner/delete/{banner}', [BannerController::class, 'destroy'])->name('banner.destroy');
     });

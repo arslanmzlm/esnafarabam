@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserState;
 use App\Models\Profile;
 use App\Models\Province;
 use App\Models\Role;
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@mail.com',
             'role_id' => $adminRole->id,
+            'state' => UserState::ACTIVE
         ]);
 
         Profile::factory()->create([

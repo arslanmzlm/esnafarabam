@@ -17,7 +17,7 @@ defineProps<{
         <nav>
             <ol class="flex items-center gap-2">
                 <li>
-                    <Link :href="route('dashboard')" class="font-medium hover:text-primary"
+                    <Link :href="route('admin.dashboard')" class="font-medium hover:text-primary"
                         >Anasayfa /
                     </Link>
                 </li>

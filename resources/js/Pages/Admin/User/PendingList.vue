@@ -1,0 +1,76 @@
+<script lang="ts" setup>
+import {router} from '@inertiajs/vue3';
+import {UserState} from '@/types/enums';
+import {User} from '@/types/model';
+import DashboardLayout from '@/Layouts/DashboardLayout.vue';
+import DeleteButton from '@/Components/DeleteButton.vue';
+import BasicTable from '@/Components/Table/BasicTable.vue';
+import VButton from '@/Components/VButton.vue';
+import CircleCheckIcon from '@/Icons/CircleCheckIcon.vue';
+import PenSquareIcon from '@/Icons/PenSquareIcon.vue';
+
+defineProps<{
+    users: User[];
+}>();
+
+function approve(user: User) {
+    router.post(route('admin.user.approve', {id: user.id}));
+}
+</script>
+
+<template>
+    <DashboardLayout title="Bekleyen Kullanıcılar">
+        <BasicTable v-if="users.length">
+            <template #head>
+                <tr>
+                    <th>#</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>E-Posta Adresi</th>
+                    <th>Telefon Numarası</th>
+                    <th>Vergi Numarası</th>
+                    <th>İl / İlçe</th>
+                    <th>İşlemler</th>
+                </tr>
+            </template>
+            <template #default>
+                <tr v-for="user in users" :key="user.id">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone_formatted ?? user.phone }}</td>
+                    <td>{{ user.profile?.tax_identity }}</td>
+                    <td>{{ user.profile?.province?.name }} / {{ user.profile?.district?.name }}</td>
+                    <td>
+                        <div class="flex flex-wrap gap-3">
+                            <DeleteButton :href="route('admin.user.destroy', {id: user.id})" />
+
+                            <VButton :href="route('admin.user.edit', {id: user.id})" icon>
+                                <PenSquareIcon class="size-5" />
+                            </VButton>
+
+                            <VButton
+                                v-if="user.state === UserState.PENDING"
+                                icon
+                                theme="info"
+                                @click="approve(user)"
+                            >
+                                <CircleCheckIcon class="size-5" />
+                            </VButton>
+                        </div>
+                    </td>
+                </tr>
+            </template>
+        </BasicTable>
+        <div v-else class="mt-6 text-center">
+            <div
+                class="rounded border border-slate-200 bg-white bg-opacity-75 p-5 text-lg font-medium shadow-sm"
+            >
+                Onay bekleyen kullanıcı yok.
+            </div>
+
+            <VButton :href="route('admin.user.list')" class="mt-6"
+                >Tüm Kullanıcıları Listele
+            </VButton>
+        </div>
+    </DashboardLayout>
+</template>

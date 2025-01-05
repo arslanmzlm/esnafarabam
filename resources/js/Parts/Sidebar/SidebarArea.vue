@@ -7,10 +7,13 @@ import BuildingIcon from '@/Icons/BuildingIcon.vue';
 import CarIcon from '@/Icons/CarIcon.vue';
 import ClipboardListAltIcon from '@/Icons/ClipboardListAltIcon.vue';
 import ExternalLinkIcon from '@/Icons/ExternalLinkIcon.vue';
+import FileInfoAltIcon from '@/Icons/FileInfoAltIcon.vue';
+import FolderImageIcon from '@/Icons/FolderImageIcon.vue';
 import GridHorizontalIcon from '@/Icons/GridHorizontalIcon.vue';
 import MapIcon from '@/Icons/MapIcon.vue';
 import SlidersHorizontalIcon from '@/Icons/SlidersHorizontalIcon.vue';
 import SquareSlidersVerticalIcon from '@/Icons/SquareSlidersVerticalIcon.vue';
+import UserCheckIcon from '@/Icons/UserCheckIcon.vue';
 import UsersIcon from '@/Icons/UsersIcon.vue';
 import WarehouseIcon from '@/Icons/WarehouseIcon.vue';
 import SidebarItem from './SidebarItem.vue';
@@ -78,7 +81,6 @@ const menuGroups = ref([
             },
         ],
     },
-
     {
         name: 'KULLANICILAR',
         menuItems: [
@@ -86,6 +88,11 @@ const menuGroups = ref([
                 icon: UsersIcon,
                 label: 'Kullanıcılar',
                 route: route('admin.user.list'),
+            },
+            {
+                icon: UserCheckIcon,
+                label: 'Bekleyen Kullanıcılar',
+                route: route('admin.user.pending.list'),
             },
         ],
     },
@@ -109,6 +116,21 @@ const menuGroups = ref([
             },
         ],
     },
+    {
+        name: 'YÖNETİM',
+        menuItems: [
+            {
+                icon: FileInfoAltIcon,
+                label: 'Sayfalar',
+                route: route('admin.page.list'),
+            },
+            {
+                icon: FolderImageIcon,
+                label: 'Bannerlar',
+                route: route('admin.banner.list'),
+            },
+        ],
+    },
 ]);
 </script>
 
@@ -123,7 +145,7 @@ const menuGroups = ref([
     >
         <!-- SIDEBAR HEADER -->
         <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-            <Link :href="route('dashboard')">
+            <Link :href="route('admin.dashboard')">
                 <img alt="Logo" src="@/Images/logo/logo.png" />
             </Link>
 

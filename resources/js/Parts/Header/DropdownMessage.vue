@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {onClickOutside} from '@vueuse/core';
 import {ref} from 'vue';
-import logoIcon from '@/Images/logo/logo-icon.png';
+import logoIcon from '../../../images/logo/logo-icon.png';
 
 const target = ref(null);
 const dropdownOpen = ref(false);
@@ -54,9 +54,8 @@ const messagesList = ref([
     <li ref="target" class="relative">
         <button
             class="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white"
-            to="#"
             type="button"
-            @click.prevent="((dropdownOpen = !dropdownOpen), (notifying = false))"
+            @click.prevent="(dropdownOpen = !dropdownOpen) || (notifying = false)"
         >
             <span
                 :class="!notifying && 'hidden'"

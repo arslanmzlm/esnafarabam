@@ -60,6 +60,11 @@ class User extends Authenticatable
         return phone($this->phone, 'TR', PhoneNumberFormat::NATIONAL);
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role->admin;
+    }
+
     /**
      * Get the attributes that should be cast.
      *

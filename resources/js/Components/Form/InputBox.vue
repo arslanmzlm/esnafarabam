@@ -38,7 +38,7 @@ if (props.suffix) {
         <label v-if="label" class="mb-3 block text-sm font-medium text-black dark:text-white"
             >{{ label }} <span v-if="required" class="text-danger">*</span></label
         >
-        
+
         <div class="flex items-stretch">
             <div
                 v-if="prefix"

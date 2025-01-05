@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\ItemState;
 use App\Enums\StepType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class VehicleType extends Model
 {
@@ -22,6 +24,16 @@ class VehicleType extends Model
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class);
+    }
+
+    public function items(): HasManyThrough
+    {
+        return $this->hasManyThrough(Item::class, Vehicle::class);
+    }
+
+    public function activeItems(): HasManyThrough
+    {
+        return $this->hasManyThrough(Item::class, Vehicle::class)->where('state', ItemState::PUBLISHED);
     }
 
     public function getLogoSrcAttribute(): ?string

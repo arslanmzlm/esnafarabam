@@ -1,0 +1,183 @@
+@import "satoshi.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    @apply max-w-screen-xl mx-auto
+}
+
+a {
+    @apply transition-colors hover:text-primary
+}
+
+.btn {
+    @apply inline-flex items-center justify-center rounded px-4.5 py-3 text-center font-medium  hover:bg-opacity-90 disabled:cursor-not-allowed disabled:bg-opacity-50 disabled:hover:bg-opacity-50;
+
+    &.btn-primary {
+        @apply bg-primary text-white;
+    }
+}
+
+.form-input {
+    @apply relative z-1 w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary
+}
+
+textarea.form-input {
+    @apply rounded-lg
+}
+
+select.form-input {
+    @apply z-20 border py-3 pl-5 pr-12
+}
+
+.form-input-prefix {
+    @apply flex items-center justify-center rounded-l bg-slate-200 px-3 dark:bg-form-strokedark dark:text-white
+}
+
+.form-input-prefix + .form-input {
+    @apply rounded-l-none
+}
+
+.item-card-vehicle-attributes > :not(:last-child)::after {
+    content: '|';
+    margin-left: 0.5rem;
+}
+
+.item-detail-page {
+    @apply text-black dark:text-white;
+}
+
+.attribute-table {
+    @apply w-full;
+}
+
+.attribute-table tbody tr td {
+    @apply p-2 text-sm;
+}
+
+.attribute-table tbody tr:nth-child(odd) td {
+    @apply bg-slate-100;
+}
+
+.item-list-table {
+    @apply w-full text-sm text-center
+}
+
+.item-list-table thead th {
+    @apply py-4
+}
+
+.item-list-table th,
+.item-list-table td {
+    @apply border-neutral-200 border-t relative
+}
+
+.item-list-table tr:nth-child(odd) {
+    @apply bg-white
+}
+
+.item-list-table tr:last-child td {
+    @apply border-b
+}
+
+.item-list-table tr td:first-child,
+.item-list-table tr th:first-child {
+    @apply border-l
+}
+
+.item-list-table tr td:last-child,
+.item-list-table tr th:last-child {
+    @apply border-r
+}
+
+.item-list-table .item-row-price {
+    @apply text-primary font-bold
+}
+
+.item-list-table a.link-overlay {
+    @apply flex absolute inset-0 items-center justify-center hover:text-current
+}
+
+.item-list-table tbody tr {
+    @apply hover:bg-primary hover:bg-opacity-35
+}
+
+.content {
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold
+    }
+
+    h1 {
+        @apply text-title-xxl
+    }
+
+    h2 {
+        @apply text-title-xl
+    }
+
+    h3 {
+        @apply text-title-lg
+    }
+
+    h4 {
+        @apply text-title-md
+    }
+
+    h5 {
+        @apply text-title-sm
+    }
+
+    h6 {
+        @apply text-title-xsm
+    }
+
+    .ql-size-huge {
+        @apply text-xl
+    }
+
+    .ql-size-large {
+        @apply text-lg
+    }
+
+    .ql-size-small {
+        @apply text-sm
+    }
+
+    .ql-align-center {
+        text-align: center;
+    }
+
+    .ql-align-left {
+        text-align: left;
+    }
+
+    .ql-align-right {
+        text-align: right;
+    }
+
+    .ql-align-justify {
+        text-align: justify;
+    }
+}
+
+.other-page-links {
+    .other-page-links-title {
+        @apply px-4 py-3 font-bold border-neutral-200 border-b
+    }
+
+    nav {
+        a {
+            @apply px-4 py-3 text-sm hover:text-primary border-neutral-200
+        }
+
+        a.active {
+            @apply bg-primary text-white
+        }
+
+        a:not(:last-child) {
+            @apply border-b
+        }
+    }
+}

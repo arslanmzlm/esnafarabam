@@ -31,7 +31,7 @@ class StoreItemRequest extends FormRequest
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
             'neighborhood_id' => 'required|exists:neighborhoods,id',
-            'attributes' => 'required|array',
+            'attributes' => 'array',
             'attributes.*.id' => 'nullable|exists:item_attributes,id',
             'attributes.*.attribute_id' => 'nullable|exists:attributes,id',
             'attributes.*.value' => 'nullable',
@@ -44,10 +44,12 @@ class StoreItemRequest extends FormRequest
         $attributes = Attribute::all();
         $values = $this->get('attributes');
 
-        foreach ($values as $index => $value) {
-            $attribute = $attributes->find($value['attribute_id']);
-            if ($attribute->required) {
-                $rules["attributes.{$index}.value"] = 'required';
+        if (!empty($values)) {
+            foreach ($values as $index => $value) {
+                $attribute = $attributes->find($value['attribute_id']);
+                if ($attribute->required) {
+                    $rules["attributes.{$index}.value"] = 'required';
+                }
             }
         }
 

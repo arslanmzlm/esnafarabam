@@ -15,17 +15,6 @@ class BrandService
         return $this->assignAttributes($brand, $data);
     }
 
-    public function update(Brand $brand, array $data): ?Brand
-    {
-        return $this->assignAttributes($brand, $data);
-    }
-
-    public function delete(Brand $brand): ?bool
-    {
-        $this->deleteLogo($brand);
-        return $brand->delete();
-    }
-
     private function assignAttributes(Brand $brand, array $data): ?Brand
     {
         $brand->active = $data['active'] ?? false;
@@ -35,12 +24,26 @@ class BrandService
         $brand->order = isset($data['order']) && is_numeric($data['order']) ? intval($data['order']) : null;
 
         if ($data['logo'] instanceof UploadedFile) {
+            $this->deleteLogo($brand);
             $brand->logo = $this->storeLogo($data['logo']);
         }
 
         $brand->save();
 
         return $brand->fresh();
+    }
+
+    private function deleteLogo(Brand $brand): void
+    {
+        if ($brand->logo) {
+            Storage::disk('public')->delete(Brand::LOGO_PATH . "/{$brand->logo}");
+        }
+    }
+
+    public function delete(Brand $brand): ?bool
+    {
+        $this->deleteLogo($brand);
+        return $brand->delete();
     }
 
     private function storeLogo(UploadedFile $logo): string
@@ -50,10 +53,8 @@ class BrandService
         return $fileName;
     }
 
-    private function deleteLogo(Brand $brand): void
+    public function update(Brand $brand, array $data): ?Brand
     {
-        if ($brand->logo) {
-            Storage::disk('public')->delete(Brand::LOGO_PATH . "/{$brand->logo}");
-        }
+        return $this->assignAttributes($brand, $data);
     }
 }

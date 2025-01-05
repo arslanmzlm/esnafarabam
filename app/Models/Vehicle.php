@@ -46,11 +46,6 @@ class Vehicle extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function attributes(): HasMany
-    {
-        return $this->hasMany(VehicleAttribute::class);
-    }
-
     public function getGearLabelAttribute(): string
     {
         return trans("enums.gear.{$this->gear->name}");
@@ -70,5 +65,20 @@ class Vehicle extends Model
                 'value' => $attributeValue->attribute_value_id ?? $attributeValue->value ?? null,
             ];
         });
+    }
+
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(VehicleAttribute::class);
+    }
+
+    public function getEnginePowerFormattedAttribute(): false|string
+    {
+        return "{$this->engine_power} hp";
+    }
+
+    public function getEngineSizeFormattedAttribute(): false|string
+    {
+        return "{$this->engine_size} cc";
     }
 }

@@ -255,7 +255,11 @@ function getAttributeError(attribute_id: number) {
                     label="İlan Başlığı"
                     required
                 />
-                <Editor v-model="form.description" label="Açıklama" required />
+                <Editor
+                    v-model="form.description"
+                    :error="form.errors.description"
+                    label="Açıklama"
+                />
             </Card>
 
             <Card title="Adres">

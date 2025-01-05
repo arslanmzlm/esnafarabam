@@ -1,4 +1,13 @@
-import {AttributeInput, AttributeType, Fuel, Gear, ItemState, StepType} from '@/types/enums';
+import {
+    AttributeInput,
+    AttributeType,
+    BannerField,
+    Fuel,
+    Gear,
+    ItemState,
+    PageCategory,
+    StepType,
+} from '@/types/enums';
 
 export interface UserFormType {
     username: string | null;
@@ -126,4 +135,31 @@ export interface ItemControlFormType {
     deleted_photos: number[];
     state: ItemState;
     note: string | null;
+}
+
+export interface PageFormType {
+    active: boolean;
+    category: PageCategory;
+    title: string;
+    slug: string | null;
+    body: string | null;
+    meta_title: string | null;
+    meta_description: string | null;
+    meta_keywords: string | null;
+}
+
+export interface BannerFormType {
+    active: boolean;
+    field: BannerField;
+    title: string;
+    alt_title: string | null;
+    sub_title: string | null;
+    body: string | null;
+    excerpt: string | null;
+    link_label: string | null;
+    link: string | null;
+    image: string | null;
+    mobile_image: string | null;
+    alt: string | null;
+    options: object | null;
 }

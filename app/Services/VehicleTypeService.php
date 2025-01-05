@@ -17,19 +17,6 @@ class VehicleTypeService
         return $type->fresh();
     }
 
-    public function update(VehicleType $type, array $data): ?VehicleType
-    {
-        $type = $this->assignAttribute($type, $data);
-
-        return $type->fresh();
-    }
-
-    public function delete(VehicleType $type): ?bool
-    {
-        $this->deleteLogo($type);
-        return $type->delete();
-    }
-
     private function assignAttribute(VehicleType $type, array $data): ?VehicleType
     {
         $type->active = $data['active'] ?? false;
@@ -55,10 +42,28 @@ class VehicleTypeService
         return $fileName;
     }
 
+    public function update(VehicleType $type, array $data): ?VehicleType
+    {
+        $type = $this->assignAttribute($type, $data);
+
+        return $type->fresh();
+    }
+
+    public function delete(VehicleType $type): ?bool
+    {
+        $this->deleteLogo($type);
+        return $type->delete();
+    }
+
     private function deleteLogo(VehicleType $type): void
     {
         if ($type->logo) {
             Storage::disk('public')->delete(VehicleType::LOGO_PATH . "/{$type->logo}");
         }
+    }
+
+    public function getActive(?int $limit = null)
+    {
+        return VehicleType::where('active', true)->limit($limit)->get()->loadCount('activeItems');
     }
 }

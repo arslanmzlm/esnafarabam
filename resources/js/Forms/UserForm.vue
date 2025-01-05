@@ -84,7 +84,6 @@ watch(
             <InputBox
                 v-model="form.tax_identity"
                 :error="form.errors.tax_identity"
-                :rows="3"
                 label="Vergi Numarası"
             />
 

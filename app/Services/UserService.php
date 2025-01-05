@@ -18,18 +18,6 @@ class UserService
         return $user->fresh();
     }
 
-    public function update(User $user, array $data): ?User
-    {
-        $user = $this->assignAttributes($user, $data);
-
-        return $user->fresh();
-    }
-
-    public function delete(User $user): ?bool
-    {
-        return $user->delete();
-    }
-
     private function assignAttributes(User $user, array $data): ?User
     {
         $user->username = $data['username'] ?? $user->username ?? $this->generateUsername();
@@ -48,6 +36,17 @@ class UserService
         $this->fillProfile($user, $data);
 
         return $user->fresh();
+    }
+
+    private function generateUsername(): string
+    {
+        $userName = 'esnafarabam' . rand(100, 999) . rand(100, 999) . rand(100, 999);
+
+        if (User::where('username', $userName)->exists()) {
+            return $this->generateUsername();
+        }
+
+        return $userName;
     }
 
     private function fillProfile(User $user, array $data): void
@@ -71,14 +70,39 @@ class UserService
         $profile->save();
     }
 
-    private function generateUsername(): string
+    public function update(User $user, array $data): ?User
     {
-        $userName = 'esnafarabam' . rand(100, 999) . rand(100, 999) . rand(100, 999);
+        $user = $this->assignAttributes($user, $data);
 
-        if (User::where('username', $userName)->exists()) {
-            return $this->generateUsername();
+        return $user->fresh();
+    }
+
+    public function delete(User $user): ?bool
+    {
+        return $user->delete();
+    }
+
+    public function approveUser(User $user): bool
+    {
+        try {
+            $user->state = UserState::ACTIVE;
+            $user->save();
+
+            return true;
+        } catch (\Exception $exception) {
+            return false;
+        }
+    }
+
+    public function updatePassword(User $user, array $data): bool
+    {
+        if (Hash::check($data['old_password'], $user->password)) {
+            $user->password = Hash::make($data['password']);
+            $user->save();
+
+            return true;
         }
 
-        return $userName;
+        return false;
     }
 }

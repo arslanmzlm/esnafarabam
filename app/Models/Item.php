@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Number;
 
 class Item extends Model
 {
@@ -59,16 +60,6 @@ class Item extends Model
         return $this->belongsTo(Neighborhood::class);
     }
 
-    public function attributes(): HasMany
-    {
-        return $this->hasMany(ItemAttribute::class);
-    }
-
-    public function photos(): HasMany
-    {
-        return $this->hasMany(ItemPhoto::class, 'item_id')->orderBy('order');
-    }
-
     public function approvedPhotos(): HasMany
     {
         return $this->hasMany(ItemPhoto::class, 'item_id')->where('state', PhotoState::APPROVED)->orderBy('order');
@@ -89,6 +80,11 @@ class Item extends Model
         return $this->photos()->where('state', PhotoState::APPROVED)->orderBy('order')->first();
     }
 
+    public function photos(): HasMany
+    {
+        return $this->hasMany(ItemPhoto::class, 'item_id')->orderBy('order');
+    }
+
     public function getAttributeValuesAttribute(): Collection
     {
         return $this->attributes()->get()->transform(function ($attributeValue) {
@@ -98,5 +94,20 @@ class Item extends Model
                 'value' => $attributeValue->attribute_value_id ?? $attributeValue->value ?? null,
             ];
         });
+    }
+
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(ItemAttribute::class);
+    }
+
+    public function getPriceFormattedAttribute(): false|string
+    {
+        return Number::format($this->price, locale: 'tr') . " TL";
+    }
+
+    public function getKilometerFormattedAttribute(): false|string
+    {
+        return Number::format($this->kilometer, locale: 'tr') . " km";
     }
 }

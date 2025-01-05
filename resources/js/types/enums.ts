@@ -51,3 +51,19 @@ export enum PhotoState {
     APPROVED = 2,
     REJECTED = 3,
 }
+
+export enum UserState {
+    PENDING = 1,
+    ACTIVE = 2,
+    CLOSED = 3,
+}
+
+export enum PageCategory {
+    COMMERCIAL = 1,
+    SERVICE = 2,
+    PRIVACY = 3,
+}
+
+export enum BannerField {
+    HOMEPAGE_SLIDER = 1,
+}

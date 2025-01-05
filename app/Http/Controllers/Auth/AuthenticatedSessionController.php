@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,19 +16,25 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        if (url()->previous() != url()->current()) {
+            redirect()->setIntendedUrl(url()->previous());
+        }
+
         return Inertia::render('Auth/Login');
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): \Symfony\Component\HttpFoundation\Response
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $route = auth()->user()->isAdmin() ? route('admin.dashboard', absolute: false) : route('homepage', absolute: false);
+
+        return Inertia::location(redirect()->intended($route));
     }
 
     /**
@@ -43,6 +48,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return Inertia::location(route('welcome'));
+        return Inertia::location(route('homepage'));
     }
 }

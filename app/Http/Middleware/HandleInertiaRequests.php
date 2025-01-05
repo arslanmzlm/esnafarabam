@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'toast' => $this->getToasts($request),
+            'toasts' => $this->getToasts($request),
         ];
     }
 
@@ -47,13 +47,13 @@ class HandleInertiaRequests extends Middleware
                 foreach ($messages as $item) {
                     $toast[] = [
                         'type' => 'success',
-                        'messages' => $item,
+                        'message' => $item,
                     ];
                 }
             } else {
                 $toast[] = [
                     'type' => 'success',
-                    'messages' => $messages,
+                    'message' => $messages,
                 ];
             }
         }
@@ -63,13 +63,13 @@ class HandleInertiaRequests extends Middleware
                 foreach ($messages as $item) {
                     $toast[] = [
                         'type' => 'error',
-                        'messages' => $item,
+                        'message' => $item,
                     ];
                 }
             } else {
                 $toast[] = [
                     'type' => 'error',
-                    'messages' => $messages,
+                    'message' => $messages,
                 ];
             }
         }
@@ -79,13 +79,13 @@ class HandleInertiaRequests extends Middleware
                 foreach ($messages as $item) {
                     $toast[] = [
                         'type' => 'warning',
-                        'messages' => $item,
+                        'message' => $item,
                     ];
                 }
             } else {
                 $toast[] = [
                     'type' => 'warning',
-                    'messages' => $messages,
+                    'message' => $messages,
                 ];
             }
         }
@@ -95,13 +95,13 @@ class HandleInertiaRequests extends Middleware
                 foreach ($messages as $item) {
                     $toast[] = [
                         'type' => 'info',
-                        'messages' => $item,
+                        'message' => $item,
                     ];
                 }
             } else {
                 $toast[] = [
                     'type' => 'info',
-                    'messages' => $messages,
+                    'message' => $messages,
                 ];
             }
         }

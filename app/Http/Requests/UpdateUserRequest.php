@@ -38,6 +38,8 @@ class UpdateUserRequest extends FormRequest
         } catch (\Throwable $th) {
         }
 
+        $profile_id = $user->profile ? $user->profile->id : 0;
+
         return [
             'username' => "nullable|string|min:3|max:255|unique:users,username,{$user->id}",
             'email' => "required|string|email|max:255|unique:users,email,{$user->id}",
@@ -48,7 +50,7 @@ class UpdateUserRequest extends FormRequest
             'company' => 'nullable|string|min:3|max:255',
             'company_phone' => 'nullable|phone:TR',
             'address' => 'nullable|string|min:3|max:255',
-            'tax_identity' => "nullable|string|min:3|max:255|unique:profiles,tax_identity,{$user->profile->id}",
+            'tax_identity' => "nullable|string|min:3|max:255|unique:profiles,tax_identity,{$profile_id}",
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
         ];
