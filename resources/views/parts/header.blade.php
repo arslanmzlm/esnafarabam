@@ -61,7 +61,7 @@
                         <!-- Dropdown Start -->
                         <div
                             id="userDropdown"
-                            class="dropdown-menu absolute right-0 z-1 hidden pt-4 group-hover:flex"
+                            class="dropdown-menu absolute right-0 z-10 hidden pt-4 group-hover:flex"
                         >
                             <div
                                 class="w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
