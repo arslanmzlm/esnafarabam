@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 
 class VehicleTypeService
 {
+    public static function getActive(?int $limit = null)
+    {
+        return VehicleType::where('active', true)->orderBy('order')->limit($limit)->get()->loadCount('activeItems');
+    }
+
     public function store(array $data): ?VehicleType
     {
         $type = new VehicleType();
@@ -60,10 +65,5 @@ class VehicleTypeService
         if ($type->logo) {
             Storage::disk('public')->delete(VehicleType::LOGO_PATH . "/{$type->logo}");
         }
-    }
-
-    public function getActive(?int $limit = null)
-    {
-        return VehicleType::where('active', true)->limit($limit)->get()->loadCount('activeItems');
     }
 }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {Link} from '@inertiajs/vue3';
+import {Link, usePage} from '@inertiajs/vue3';
 import {onClickOutside} from '@vueuse/core';
 import {ref} from 'vue';
 import {useSidebarStore} from '@/Stores/sidebar';
@@ -9,11 +9,13 @@ import ClipboardListAltIcon from '@/Icons/ClipboardListAltIcon.vue';
 import ExternalLinkIcon from '@/Icons/ExternalLinkIcon.vue';
 import FileInfoAltIcon from '@/Icons/FileInfoAltIcon.vue';
 import FolderImageIcon from '@/Icons/FolderImageIcon.vue';
+import GearIcon from '@/Icons/GearIcon.vue';
 import GridHorizontalIcon from '@/Icons/GridHorizontalIcon.vue';
 import MapIcon from '@/Icons/MapIcon.vue';
 import SlidersHorizontalIcon from '@/Icons/SlidersHorizontalIcon.vue';
 import SquareSlidersVerticalIcon from '@/Icons/SquareSlidersVerticalIcon.vue';
 import UserCheckIcon from '@/Icons/UserCheckIcon.vue';
+import UserShieldIcon from '@/Icons/UserShieldIcon.vue';
 import UsersIcon from '@/Icons/UsersIcon.vue';
 import WarehouseIcon from '@/Icons/WarehouseIcon.vue';
 import SidebarItem from './SidebarItem.vue';
@@ -25,113 +27,252 @@ onClickOutside(target, () => {
     sidebarStore.isSidebarOpen = false;
 });
 
-const menuGroups = ref([
-    {
+const page = usePage();
+const abilities = page.props.auth.abilities;
+const isRoot = page.props.auth.user.role?.root ?? false;
+const menu: MenuRow[] = [];
+
+interface MenuRow {
+    name: string;
+    menuItems: {
+        icon: any;
+        label: string;
+        route: string;
+    }[];
+}
+
+// VEHICLE
+
+if (
+    isRoot ||
+    abilities.includes('admin.vehicle.type.list') ||
+    abilities.includes('admin.brand.list') ||
+    abilities.includes('admin.vehicle.list')
+) {
+    const row: MenuRow = {
         name: 'TAŞIT',
-        menuItems: [
-            {
-                icon: WarehouseIcon,
-                label: 'Taşıt Türleri',
-                route: route('admin.vehicle.type.list'),
-            },
-            {
-                icon: BuildingIcon,
-                label: 'Markalar',
-                route: route('admin.brand.list'),
-            },
-            {
-                icon: CarIcon,
-                label: 'Taşıtlar',
-                route: route('admin.vehicle.list'),
-            },
-        ],
-    },
-    {
+        menuItems: [],
+    };
+
+    if (isRoot || abilities.includes('admin.vehicle.type.list')) {
+        row.menuItems.push({
+            icon: WarehouseIcon,
+            label: 'Taşıt Türleri',
+            route: route('admin.vehicle.type.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.brand.list')) {
+        row.menuItems.push({
+            icon: BuildingIcon,
+            label: 'Markalar',
+            route: route('admin.brand.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.vehicle.list')) {
+        row.menuItems.push({
+            icon: CarIcon,
+            label: 'Taşıtlar',
+            route: route('admin.vehicle.list'),
+        });
+    }
+
+    menu.push(row);
+}
+
+// ATTRIBUTE
+
+if (
+    isRoot ||
+    abilities.includes('admin.attribute.category.list') ||
+    abilities.includes('admin.attribute.list')
+) {
+    const row: MenuRow = {
         name: 'ÖZELLİK',
-        menuItems: [
-            {
-                icon: SquareSlidersVerticalIcon,
-                label: 'Kategoriler',
-                route: route('admin.attribute.category.list'),
-            },
-            {
-                icon: SlidersHorizontalIcon,
-                label: 'Özellikler',
-                route: route('admin.attribute.list'),
-            },
-        ],
-    },
-    {
+        menuItems: [],
+    };
+
+    if (isRoot || abilities.includes('admin.attribute.category.list')) {
+        row.menuItems.push({
+            icon: SquareSlidersVerticalIcon,
+            label: 'Kategoriler',
+            route: route('admin.attribute.category.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.attribute.list')) {
+        row.menuItems.push({
+            icon: SlidersHorizontalIcon,
+            label: 'Özellikler',
+            route: route('admin.attribute.list'),
+        });
+    }
+
+    menu.push(row);
+}
+
+// ITEM
+
+if (
+    isRoot ||
+    abilities.includes('admin.vehicle.select') ||
+    abilities.includes('admin.item.list') ||
+    abilities.includes('admin.item.grid')
+) {
+    const row: MenuRow = {
         name: 'İLAN',
-        menuItems: [
-            {
-                icon: ExternalLinkIcon,
-                label: 'Taşıt Seçimi',
-                route: route('admin.vehicle.select'),
-            },
-            {
-                icon: ClipboardListAltIcon,
-                label: 'İlanlar (Tablo)',
-                route: route('admin.item.list'),
-            },
-            {
-                icon: GridHorizontalIcon,
-                label: 'İlanlar (Liste)',
-                route: route('admin.item.grid'),
-            },
-        ],
-    },
-    {
-        name: 'KULLANICILAR',
-        menuItems: [
-            {
-                icon: UsersIcon,
-                label: 'Kullanıcılar',
-                route: route('admin.user.list'),
-            },
-            {
-                icon: UserCheckIcon,
-                label: 'Bekleyen Kullanıcılar',
-                route: route('admin.user.pending.list'),
-            },
-        ],
-    },
-    {
+        menuItems: [],
+    };
+
+    if (isRoot || abilities.includes('admin.vehicle.select')) {
+        row.menuItems.push({
+            icon: ExternalLinkIcon,
+            label: 'Taşıt Seçimi',
+            route: route('admin.vehicle.select'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.item.list')) {
+        row.menuItems.push({
+            icon: ClipboardListAltIcon,
+            label: 'İlanlar (Tablo)',
+            route: route('admin.item.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.item.grid')) {
+        row.menuItems.push({
+            icon: GridHorizontalIcon,
+            label: 'İlanlar (Liste)',
+            route: route('admin.item.grid'),
+        });
+    }
+
+    menu.push(row);
+}
+
+// USER
+
+if (
+    isRoot ||
+    abilities.includes('admin.user.list') ||
+    abilities.includes('admin.user.pending.list') ||
+    abilities.includes('admin.role.list')
+) {
+    const row: MenuRow = {
+        name: 'KULLANICI',
+        menuItems: [],
+    };
+
+    if (isRoot || abilities.includes('admin.user.list')) {
+        row.menuItems.push({
+            icon: UsersIcon,
+            label: 'Kullanıcılar',
+            route: route('admin.user.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.user.pending.list')) {
+        row.menuItems.push({
+            icon: UserCheckIcon,
+            label: 'Bekleyen Kullanıcılar',
+            route: route('admin.user.pending.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.role.list')) {
+        row.menuItems.push({
+            icon: UserShieldIcon,
+            label: 'Yetkiler',
+            route: route('admin.role.list'),
+        });
+    }
+
+    menu.push(row);
+}
+
+// LOCATION
+
+if (
+    isRoot ||
+    abilities.includes('admin.province.list') ||
+    abilities.includes('admin.district.list') ||
+    abilities.includes('admin.neighborhood.list')
+) {
+    const row: MenuRow = {
         name: 'KONUM',
-        menuItems: [
-            {
-                icon: MapIcon,
-                label: 'İller',
-                route: route('admin.province.list'),
-            },
-            {
-                icon: MapIcon,
-                label: 'İlçeler',
-                route: route('admin.district.list'),
-            },
-            {
-                icon: MapIcon,
-                label: 'Mahalleler',
-                route: route('admin.neighborhood.list'),
-            },
-        ],
-    },
-    {
+        menuItems: [],
+    };
+
+    if (isRoot || abilities.includes('admin.province.list')) {
+        row.menuItems.push({
+            icon: MapIcon,
+            label: 'İller',
+            route: route('admin.province.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.district.list')) {
+        row.menuItems.push({
+            icon: MapIcon,
+            label: 'İlçeler',
+            route: route('admin.district.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.neighborhood.list')) {
+        row.menuItems.push({
+            icon: MapIcon,
+            label: 'Mahalleler',
+            route: route('admin.neighborhood.list'),
+        });
+    }
+
+    menu.push(row);
+}
+
+// MANAGEMENT
+
+if (
+    isRoot ||
+    abilities.includes('admin.page.list') ||
+    abilities.includes('admin.banner.list') ||
+    abilities.includes('admin.setting.edit')
+) {
+    const row: MenuRow = {
         name: 'YÖNETİM',
-        menuItems: [
-            {
-                icon: FileInfoAltIcon,
-                label: 'Sayfalar',
-                route: route('admin.page.list'),
-            },
-            {
-                icon: FolderImageIcon,
-                label: 'Bannerlar',
-                route: route('admin.banner.list'),
-            },
-        ],
-    },
-]);
+        menuItems: [],
+    };
+
+    if (isRoot || abilities.includes('admin.page.list')) {
+        row.menuItems.push({
+            icon: FileInfoAltIcon,
+            label: 'Sayfalar',
+            route: route('admin.page.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.banner.list')) {
+        row.menuItems.push({
+            icon: FolderImageIcon,
+            label: 'Bannerlar',
+            route: route('admin.banner.list'),
+        });
+    }
+
+    if (isRoot || abilities.includes('admin.setting.edit')) {
+        row.menuItems.push({
+            icon: GearIcon,
+            label: 'Site Ayarları',
+            route: route('admin.setting.edit'),
+        });
+    }
+
+    menu.push(row);
+}
+
+const menuGroups = ref<MenuRow[]>(menu);
 </script>
 
 <template>

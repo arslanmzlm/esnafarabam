@@ -259,6 +259,16 @@ return [
         'alt' => 'Görsel Açıklaması',
         'options' => 'Seçenekler',
         'old_password' => 'Eski şifre',
+        'site_title' => 'Site başlığı',
+        'site_description' => 'Site açıklaması',
+        'whatsapp_number' => 'Whatsapp numarası',
+        'logo_default' => 'Logo',
+        'logo_favicon' => 'Tarayıcı Simgesi',
+        'logo_dark' => 'Logo (karanlık)',
+        'logo_icon' => 'Logo (simge)',
+        'footer_description' => 'Footer açıklaması',
+        'footer_copyright' => 'Footer copyright',
+        'footer_end' => 'Footer bitiş',
     ],
 
 ];

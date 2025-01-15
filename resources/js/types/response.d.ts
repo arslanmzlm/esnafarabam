@@ -28,3 +28,7 @@ export interface AttributeViewResponse {
         value: Array<string>;
     }[];
 }
+
+export interface SettingsResponse {
+    [key: string]: any;
+}

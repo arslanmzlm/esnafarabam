@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::factory()->isAdmin()->create(['name' => 'Admin']);
-        Role::factory()->create(['name' => 'User']);
+        Role::factory()->isDefault()->create(['name' => 'User']);
+        $rootRole = Role::factory()->isAdmin()->isRoot()->create(['name' => 'Root']);
+        Role::factory()->isAdmin()->create(['name' => 'Admin']);
 
         $province = Province::create([
             'name' => 'Test Province',
@@ -43,7 +44,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'username' => 'admin',
             'email' => 'admin@mail.com',
-            'role_id' => $adminRole->id,
+            'role_id' => $rootRole->id,
             'state' => UserState::ACTIVE
         ]);
 

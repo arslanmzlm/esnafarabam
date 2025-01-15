@@ -2,8 +2,14 @@
 
 @section('body')
     @if ($items->total())
-        <div class="grid xl:grid-cols-1 xl:gap-6">
+        <div class="hidden lg:grid lg:grid-cols-1 lg:gap-6">
             <x-item.table :items="$items->items()" />
+        </div>
+
+        <div class="space-y-2 lg:hidden">
+            @foreach ($items->items() as $item)
+                <x-item.mobile-row :item="$item"></x-item.mobile-row>
+            @endforeach
         </div>
 
         <div>

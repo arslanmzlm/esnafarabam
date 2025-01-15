@@ -47,6 +47,7 @@ class StoreUserRequest extends FormRequest
             'tax_identity' => 'nullable|string|min:3|max:255|unique:profiles,tax_identity',
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
+            'role_id' => 'nullable|exists:roles,id',
         ];
     }
 }

@@ -58,7 +58,8 @@ return [
     ],
     'banner' => [
         'field' => [
-            'HOME_SLIDER' => 'Anasayfa Sliderı'
+            'HOME_SLIDER' => 'Anasayfa Sliderı',
+            'ITEM_DETAIL_SIDEBAR' => 'İlan Detay Sayfası Sağ Alan',
         ]
     ],
 ];

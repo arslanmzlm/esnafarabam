@@ -18,7 +18,7 @@ const props = withDefaults(
 
 const mimes = computed(() => {
     if (props.accept === 'image') {
-        return 'image/jpeg,image/png,image/webp,image/svg+xml';
+        return 'image/jpeg,image/png,image/webp,image/svg+xml,image/x-icon';
     }
 
     return props.accept;

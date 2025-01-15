@@ -4,39 +4,7 @@
         aria-label="{{ __('Pagination Navigation') }}"
         class="mt-6 flex flex-col items-center justify-between border border-neutral-200 bg-white px-4 py-10 shadow"
     >
-        <div class="flex flex-1 justify-between sm:hidden">
-            @if ($paginator->onFirstPage())
-                <span
-                    class="text-gray-500 border-gray-300 dark:text-gray-600 dark:bg-gray-800 dark:border-gray-600 relative inline-flex cursor-default items-center rounded-md border bg-white px-4 py-2 text-sm font-medium leading-5"
-                >
-                    {!! __('pagination.previous') !!}
-                </span>
-            @else
-                <a
-                    href="{{ $paginator->previousPageUrl() }}"
-                    class="text-gray-700 border-gray-300 hover:text-gray-500 ring-gray-300 active:bg-gray-100 active:text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:active:bg-gray-700 dark:active:text-gray-300 relative inline-flex items-center rounded-md border bg-white px-4 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:border-blue-300 focus:outline-none focus:ring dark:focus:border-blue-700"
-                >
-                    {!! __('pagination.previous') !!}
-                </a>
-            @endif
-
-            @if ($paginator->hasMorePages())
-                <a
-                    href="{{ $paginator->nextPageUrl() }}"
-                    class="text-gray-700 border-gray-300 hover:text-gray-500 ring-gray-300 active:bg-gray-100 active:text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:active:bg-gray-700 dark:active:text-gray-300 relative ml-3 inline-flex items-center rounded-md border bg-white px-4 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:border-blue-300 focus:outline-none focus:ring dark:focus:border-blue-700"
-                >
-                    {!! __('pagination.next') !!}
-                </a>
-            @else
-                <span
-                    class="text-gray-500 border-gray-300 dark:text-gray-600 dark:bg-gray-800 dark:border-gray-600 relative ml-3 inline-flex cursor-default items-center rounded-md border bg-white px-4 py-2 text-sm font-medium leading-5"
-                >
-                    {!! __('pagination.next') !!}
-                </span>
-            @endif
-        </div>
-
-        <div class="hidden sm:flex sm:flex-1 sm:flex-col sm:items-center sm:justify-between">
+        <div class="sm:flex sm:flex-1 sm:flex-col sm:items-center sm:justify-between">
             <div class="flex gap-2">
                 {{-- Previous Page Link --}}
 

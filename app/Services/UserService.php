@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Enums\UserState;
 use App\Models\Profile;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,8 +27,17 @@ class UserService
             $user->password = Hash::make($data['password']);
         }
 
-        $user->state = $user->role_id ?? UserState::PENDING;
-        $user->role_id = $user->role_id ?? Role::DEFAULT_ROLE_ID;
+        if (!empty($data['role_id']) && auth()->user()->checkAbility('admin.role.edit')) {
+            $user->role_id = $data['role_id'];
+        } else if ($user->role_id === null || empty($data['role_id'])) {
+            $user->role_id = RoleService::defaultRole()?->id;
+        }
+
+        if ($user->id === null && $user->state === null && $user->isAdmin()) {
+            $user->state = UserState::ACTIVE;
+        }
+
+        $user->state = $user->state ?? UserState::PENDING;
 
         $user->save();
 

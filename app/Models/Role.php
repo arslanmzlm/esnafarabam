@@ -10,8 +10,6 @@ class Role extends Model
 {
     use HasFactory;
 
-    const DEFAULT_ROLE_ID = 2;
-
     protected $fillable = ['key', 'title', 'description'];
 
     public function abilities(): BelongsToMany

@@ -14,15 +14,16 @@ function toastLeaved(index: number) {
 
 <template>
     <div
-        v-if="toasts.values.length"
+        v-if="toasts.length"
         class="fixed bottom-0 left-0 right-0 z-999999 mb-10 flex flex-col items-center justify-center gap-4"
     >
-        <ToastItem
-            v-for="(toast, index) in toasts"
-            :key="index"
-            :message="toast.message"
-            :type="toast.type"
-            @leaved="toastLeaved(index)"
-        />
+        <template v-for="(toast, index) in toasts" :key="index">
+            <ToastItem
+                v-if="toast"
+                :message="toast.message"
+                :type="toast.type"
+                @leaved="toastLeaved(index)"
+            />
+        </template>
     </div>
 </template>

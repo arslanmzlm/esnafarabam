@@ -2,13 +2,14 @@
 import {useForm} from '@inertiajs/vue3';
 import {computed} from 'vue';
 import {UserFormType} from '@/types/form';
-import {Province, User} from '@/types/model';
+import {Province, Role, User} from '@/types/model';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import UserForm from '@/Forms/UserForm.vue';
 
 const props = defineProps<{
     user: User;
     provinces: Province[];
+    roles: Role[];
 }>();
 
 const user = props.user;
@@ -29,6 +30,7 @@ const form = useForm<UserFormType>({
     tax_identity: user.profile?.tax_identity ?? '',
     province_id: user.profile?.province_id ?? 0,
     district_id: user.profile?.district_id ?? 0,
+    role_id: user.role_id,
 });
 
 function submit() {
@@ -38,6 +40,6 @@ function submit() {
 
 <template>
     <DashboardLayout :breadcrumbItems :title="pageTitle">
-        <UserForm :form :provinces @submit.prevent="submit" />
+        <UserForm :form :provinces :roles @submit.prevent="submit" />
     </DashboardLayout>
 </template>

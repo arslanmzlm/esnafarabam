@@ -23,6 +23,7 @@ export interface User {
     created_at: string;
     updated_at: string;
 
+    role?: Role;
     profile?: Profile;
     phone_formatted?: string;
 }
@@ -276,8 +277,41 @@ export interface Banner {
     mobile_image: string | null;
     alt: string | null;
     options: object | null;
+    created_at: string;
+    updated_at: string;
 
     field_label: string;
     image_src: string | null;
     mobile_image_src: string | null;
+}
+
+export interface Setting {
+    id: number;
+    key: string;
+    title: string;
+    value: any;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Role {
+    id: number;
+    name: string;
+    key: string | null;
+    description: string | null;
+    admin: boolean;
+    default: boolean;
+    root: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Ability {
+    id: number;
+    route: string;
+    post: string;
+    title: string;
+    description: string | null;
+    created_at: string;
+    updated_at: string;
 }

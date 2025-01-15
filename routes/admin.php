@@ -10,14 +10,17 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\NeighborhoodController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProvinceController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
     ->name('admin.')
-    ->middleware('auth')
+    ->middleware(['auth', CheckRole::class])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -113,4 +116,14 @@ Route::prefix('admin')
         Route::get('banner/edit/{banner}', [BannerController::class, 'edit'])->name('banner.edit');
         Route::post('banner/update/{banner}', [BannerController::class, 'update'])->name('banner.update');
         Route::post('banner/delete/{banner}', [BannerController::class, 'destroy'])->name('banner.destroy');
+
+        Route::get('settings', [SettingController::class, 'edit'])->name('setting.edit');
+        Route::post('setting/update', [SettingController::class, 'update'])->name('setting.update');
+
+        Route::get('roles', [RoleController::class, 'list'])->name('role.list');
+        Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
+        Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
+        Route::get('role/edit/{role}', [RoleController::class, 'edit'])->name('role.edit');
+        Route::post('role/update/{role}', [RoleController::class, 'update'])->name('role.update');
+        Route::post('role/delete/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
     });

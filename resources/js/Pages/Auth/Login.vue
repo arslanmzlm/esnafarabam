@@ -31,7 +31,6 @@ function submit() {
                     :error="form.errors.email"
                     class="col-span-full lg:col-span-1"
                     label="E-Posta Adresi"
-                    required
                     type="email"
                 />
 
@@ -39,16 +38,24 @@ function submit() {
                     v-model="form.password"
                     :error="form.errors.password"
                     label="Şifre"
-                    required
                     type="password"
                 />
+
+                <div class="font-medium">
+                    Şifreni mi unuttun?
+                    <Link :href="route('password.request')" class="text-primary hover:underline">
+                        Şifreni sıfırla
+                    </Link>
+                </div>
 
                 <VButton block type="submit">Giriş Yap</VButton>
 
                 <div class="mt-6 text-center">
                     <p class="font-medium">
                         Hesabın yok mu?
-                        <Link :href="route('register')" class="text-primary">Hemen kaydol</Link>
+                        <Link :href="route('register')" class="text-primary hover:underline"
+                            >Hemen kaydol
+                        </Link>
                     </p>
                 </div>
             </form>

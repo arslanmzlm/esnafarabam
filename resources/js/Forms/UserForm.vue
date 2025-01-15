@@ -2,7 +2,7 @@
 import {InertiaForm} from '@inertiajs/vue3';
 import {computed, watch} from 'vue';
 import {UserFormType} from '@/types/form';
-import {Province} from '@/types/model';
+import {Province, Role} from '@/types/model';
 import Card from '@/Components/Card.vue';
 import InputBox from '@/Components/Form/InputBox.vue';
 import SelectBox from '@/Components/Form/SelectBox.vue';
@@ -12,6 +12,7 @@ import VButton from '@/Components/VButton.vue';
 const props = defineProps<{
     form: InertiaForm<UserFormType>;
     provinces: Province[];
+    roles: Role[];
 }>();
 
 const province = computed(() => {
@@ -103,6 +104,18 @@ watch(
                 :items="province?.districts ?? []"
                 label="İlçe"
                 option-label="name"
+                required
+            />
+        </Card>
+
+        <Card title="Yetki">
+            <SelectBox
+                v-model="form.role_id"
+                :error="form.errors.role_id"
+                :items="roles"
+                label="Yetki"
+                option-label="name"
+                placeholder="-- Varsayılan Yetkiyi Ata --"
                 required
             />
         </Card>

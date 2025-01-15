@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->foreignId('role_id')
                 ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
+                ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->dateTime('active_at')
                 ->nullable();
@@ -51,12 +51,12 @@ return new class extends Migration {
             $table->foreignId('province_id')
                 ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
+                ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->foreignId('district_id')
                 ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
+                ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();
         });

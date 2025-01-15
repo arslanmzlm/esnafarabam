@@ -12,7 +12,7 @@
             </a>
         </div>
 
-        <main class="mt-6 w-full">
+        <main class="mt-6 w-full px-2">
             <slot />
         </main>
     </div>

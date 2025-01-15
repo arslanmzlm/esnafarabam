@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Enums\BannerField;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\VehicleType;
 use App\Services\AttributeService;
+use App\Services\BannerService;
 use App\Services\ItemService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ItemController extends Controller
 {
-    public function __construct(private AttributeService $attributeService, private ItemService $itemService)
+    public function __construct(private AttributeService $attributeService, private ItemService $itemService, private BannerService $bannerService)
     {
     }
 
@@ -39,6 +41,7 @@ class ItemController extends Controller
         return view('item.detail', [
             'item' => $item,
             'attributeCategories' => $this->attributeService->getAttributesByItem($item),
+            'sidebarBanners' => $this->bannerService->getByField(BannerField::ITEM_DETAIL_SIDEBAR),
         ]);
     }
 }

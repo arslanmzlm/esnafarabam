@@ -20,12 +20,19 @@ return new class extends Migration {
                 ->nullable();
             $table->boolean('admin')
                 ->default(false);
+            $table->boolean('default')
+                ->default(false);
+            $table->boolean('root')
+                ->default(false);
             $table->timestamps();
         });
 
         Schema::create('abilities', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('route')->unique();
+            $table->string('post')->nullable();
+            $table->string('group')->nullable();
+            $table->string('action')->nullable();
             $table->string('title');
             $table->string('description')
                 ->nullable();
@@ -41,7 +48,6 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->timestamps();
         });
     }
 

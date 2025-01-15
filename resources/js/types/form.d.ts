@@ -23,6 +23,7 @@ export interface UserFormType {
     tax_identity: string | null;
     province_id: number;
     district_id: number;
+    role_id: number | null;
 }
 
 export interface ProvinceFormType {
@@ -162,4 +163,23 @@ export interface BannerFormType {
     mobile_image: string | null;
     alt: string | null;
     options: object | null;
+}
+
+export interface SettingFormType {
+    site_title: any;
+    site_description: any;
+    whatsapp_number: any;
+    logo_default: any;
+    logo_favicon: any;
+    logo_dark: any;
+    logo_icon: any;
+    footer_description: any;
+    footer_copyright: any;
+    footer_end: any;
+}
+
+export interface RoleFormType {
+    name: string;
+    admin: boolean | null;
+    abilities: number[];
 }

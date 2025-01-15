@@ -8,6 +8,7 @@ export interface Toast {
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
+        abilities: string[];
     };
     toasts: Toast[];
 };

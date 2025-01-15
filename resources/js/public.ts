@@ -40,6 +40,44 @@ window.onload = () => {
         new Splide('#home-page-slider', {
             type: 'loop',
             autoHeight: true,
+            autoplay: true,
+            interval: 5000,
+            pauseOnHover: true,
         }).mount();
+    }
+
+    const accordions = document.querySelectorAll('.accordion');
+    if (accordions.length) {
+        accordions.forEach((accordion) => {
+            const button = accordion.querySelector('.accordion-button');
+            if (button) {
+                button.addEventListener('click', () => {
+                    accordion.classList.toggle('active');
+                });
+            }
+        });
+    }
+
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavButtons = document.querySelectorAll('.mobile-nav-btn');
+    if (mobileNav && mobileNavButtons.length) {
+        mobileNavButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                button.classList.toggle('text-primary');
+                mobileNav.classList.toggle('active');
+                document.body.classList.toggle('overflow-hidden');
+            });
+        });
+    }
+
+    const headerSearch = document.getElementById('headerSearch');
+    const headerSearchButtons = document.querySelectorAll('.header-search-btn');
+    if (headerSearch && headerSearchButtons.length) {
+        headerSearchButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                button.classList.toggle('text-primary');
+                headerSearch.classList.toggle('active');
+            });
+        });
     }
 };

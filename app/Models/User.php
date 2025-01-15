@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use libphonenumber\PhoneNumberFormat;
 use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
@@ -63,6 +64,26 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role && $this->role->admin;
+    }
+
+    public function checkAbility(string $route): bool
+    {
+        if ($this->isRoot()) return true;
+
+        $hasAbility = Ability::where('route', $route)->orWhere('post', $route)->exists();
+        if (!$hasAbility) return true;
+
+        return $this->role->abilities()->where('route', $route)->orWhere('post', $route)->exists();
+    }
+
+    public function isRoot(): bool
+    {
+        return $this->role && $this->role->root;
+    }
+
+    public function getAbilities(): Collection
+    {
+        return $this->role->abilities()->pluck('route');
     }
 
     /**

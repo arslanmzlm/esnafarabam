@@ -123,6 +123,12 @@ class ItemService
 
                     $uploaded[] = $photo->id;
                 } else {
+                    $photo = $item->photos()->find($id);
+                    if ($photo->order !== $order) {
+                        $photo->order = $order;
+                        $photo->save();
+                    }
+
                     $uploaded[] = $id;
                 }
             }

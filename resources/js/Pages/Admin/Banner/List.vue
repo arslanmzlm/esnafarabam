@@ -37,7 +37,7 @@ defineProps<{
                             v-if="banner.image && banner.image_src"
                             :src="banner.image_src"
                             alt="Görsel"
-                            class="max-h-16 max-w-50"
+                            class="mx-auto max-h-16 max-w-50"
                         />
                     </td>
                     <td>{{ banner.field_label }}</td>

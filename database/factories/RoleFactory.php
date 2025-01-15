@@ -28,4 +28,18 @@ class RoleFactory extends Factory
             'admin' => true,
         ]);
     }
+
+    public function isDefault(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'default' => true,
+        ]);
+    }
+
+    public function isRoot(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'root' => true,
+        ]);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Enums;
 enum BannerField: int
 {
     case HOME_SLIDER = 1;
+    case ITEM_DETAIL_SIDEBAR = 2;
 
     public static function getAll(): array
     {

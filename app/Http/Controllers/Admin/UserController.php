@@ -8,12 +8,13 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\ProvinceService;
+use App\Services\RoleService;
 use App\Services\UserService;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function __construct(private UserService $userService, private ProvinceService $provinceService)
+    public function __construct(private UserService $userService, private ProvinceService $provinceService, private RoleService $roleService)
     {
     }
 
@@ -35,6 +36,7 @@ class UserController extends Controller
     {
         return Inertia::render('Admin/User/Create', [
             'provinces' => $this->provinceService->getToDistrict(),
+            'roles' => $this->roleService->getForUserCreate(),
         ]);
     }
 
@@ -52,6 +54,7 @@ class UserController extends Controller
         return Inertia::render('Admin/User/Edit', [
             'user' => $user,
             'provinces' => $this->provinceService->getToDistrict(),
+            'roles' => $this->roleService->getForUserCreate(),
         ]);
     }
 

@@ -22,7 +22,7 @@
         >
             {{ $item->vehicle->title }}
         </div>
-        <div class="item-card-vehicle-attributes flex flex-wrap gap-2 text-sm text-graydark">
+        <div class="item-card-vehicle-attributes flex flex-wrap gap-1 text-sm text-graydark">
             <span class="item-card-vehicle-year">
                 {{ $item->vehicle->year }}
             </span>

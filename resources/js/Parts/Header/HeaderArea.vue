@@ -53,9 +53,6 @@ const sidebarStore = useSidebarStore();
                     </span>
                 </button>
                 <!-- Hamburger Toggle BTN -->
-                <button class="block flex-shrink-0 lg:hidden" to="/public">
-                    <img alt="Logo" src="@/Images/logo/logo-icon.png" />
-                </button>
             </div>
             <div class="hidden sm:block">
                 <form method="POST">
