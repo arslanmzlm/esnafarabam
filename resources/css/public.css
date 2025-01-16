@@ -122,31 +122,32 @@ select.form-input {
 
 .content {
     h1, h2, h3, h4, h5, h6 {
-        @apply font-bold
+        @apply font-bold;
+        line-height: 1.25;
     }
 
     h1 {
-        @apply text-title-xxl
+        font-size: 2rem;
     }
 
     h2 {
-        @apply text-title-xl
+        font-size: 1.8rem;
     }
 
     h3 {
-        @apply text-title-lg
+        font-size: 1.6rem;
     }
 
     h4 {
-        @apply text-title-md
+        font-size: 1.4rem;
     }
 
     h5 {
-        @apply text-title-sm
+        font-size: 1.2rem;
     }
 
     h6 {
-        @apply text-title-xsm
+        font-size: 1rem;
     }
 
     .ql-size-huge {

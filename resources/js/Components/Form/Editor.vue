@@ -41,3 +41,43 @@ const model = defineModel<string | null>({required: true});
         <InvalidFeedback v-if="error" :message="error" />
     </div>
 </template>
+
+<style>
+.ql-editor {
+    @apply space-y-5;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold text-black;
+        line-height: 1.25;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.6rem;
+    }
+
+    h4 {
+        font-size: 1.4rem;
+    }
+
+    h5 {
+        font-size: 1.2rem;
+    }
+
+    h6 {
+        font-size: 1rem;
+    }
+}
+</style>

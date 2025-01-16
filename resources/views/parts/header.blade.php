@@ -43,7 +43,7 @@
                 </form>
             </div>
 
-            <div class="ml-auto flex gap-2">
+            <div class="ml-auto flex gap-3">
                 <button type="button" class="mobile-nav-btn lg:hidden">
                     <svg
                         viewBox="0 0 24 24"
@@ -61,7 +61,7 @@
                     </svg>
                 </button>
 
-                <button type="button" class="header-search-btn lg:hidden">
+                <button type="button" class="header-search-btn mr-3 lg:hidden">
                     <svg
                         class="size-6"
                         viewBox="0 0 24 24"
@@ -312,7 +312,9 @@
 
         <div class="accordion-inner mt-2">
             @foreach (\App\Services\VehicleTypeService::getActive() as $vehicleType)
-                <a href="#" class="block py-1 text-sm">{{ $vehicleType->name }}</a>
+                <a href="{{ route('item.list', $vehicleType) }}" class="block py-1 text-sm">
+                    {{ $vehicleType->name }}
+                </a>
             @endforeach
         </div>
     </div>

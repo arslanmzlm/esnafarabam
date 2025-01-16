@@ -1,8 +1,14 @@
 @extends('layouts.main')
 
 @section('body')
-    <div class="grid grid-cols-5 gap-6">
-        <div class="col-span-1 space-y-6">
+    <div class="grid gap-6 lg:grid-cols-5">
+        <div class="col-span-full lg:order-2 lg:col-span-4">
+            <x-card class="content">
+                <h1>{{ $page->title }}</h1>
+                {!! $page->body !!}
+            </x-card>
+        </div>
+        <div class="col-span-full space-y-6 lg:order-1 lg:col-span-1">
             <div
                 class="other-page-links rounded-sm border border-stroke bg-white shadow-sm dark:border-strokedark dark:bg-boxdark"
             >
@@ -50,12 +56,6 @@
                     @endforeach
                 </nav>
             </div>
-        </div>
-        <div class="col-span-4">
-            <x-card class="content">
-                <h1>{{ $page->title }}</h1>
-                {!! $page->body !!}
-            </x-card>
         </div>
     </div>
 @endsection

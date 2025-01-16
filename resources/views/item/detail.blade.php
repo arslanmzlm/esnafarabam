@@ -2,7 +2,7 @@
 
 @section('body')
     <div class="item-detail-page grid items-start gap-4 lg:grid-cols-4">
-        <div class="col-span-full grid gap-4 lg:grid-cols-3">
+        <div class="col-span-full grid gap-4 lg:col-span-3 lg:grid-cols-3">
             <div class="col-span-full rounded border border-stroke bg-white shadow-sm">
                 <h1
                     class="rounded px-5 py-3 font-medium lg:line-clamp-1 lg:text-title-sm"
@@ -12,9 +12,7 @@
                 </h1>
             </div>
 
-            <div
-                class="col-span-full rounded border border-stroke bg-white shadow-sm lg:col-span-2"
-            >
+            <div class="rounded border border-stroke bg-white shadow-sm lg:col-span-2">
                 <div id="item-photo-carousel" class="splide">
                     <div class="splide__track">
                         <ul class="splide__list">
@@ -103,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="col-span-full space-y-4 lg:col-span-3">
+            <div class="col-span-full space-y-4">
                 <x-card title="Araç Özeti">
                     <div class="flex flex-col flex-wrap gap-6 dark:bg-form-strokedark lg:flex-row">
                         @if ($item->vehicle->brand->logo)
