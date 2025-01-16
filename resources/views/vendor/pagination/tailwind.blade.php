@@ -5,11 +5,15 @@
         class="mt-6 flex flex-col items-center justify-between border border-neutral-200 bg-white px-4 py-10 shadow"
     >
         <div class="sm:flex sm:flex-1 sm:flex-col sm:items-center sm:justify-between">
-            <div class="flex gap-2">
+            <div class="flex justify-center gap-2">
                 {{-- Previous Page Link --}}
 
                 @if ($paginator->onFirstPage())
-                    <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
+                    <span
+                        aria-disabled="true"
+                        aria-label="{{ __('pagination.previous') }}"
+                        class="size-10"
+                    >
                         <span
                             class="text-gray-500 border-gray-300 dark:bg-gray-800 dark:border-gray-600 relative inline-flex size-10 cursor-default items-center justify-center rounded-full border border-neutral-500 bg-whiten text-sm font-bold leading-5 opacity-50 shadow-sm"
                             aria-hidden="true"
@@ -44,7 +48,7 @@
                 @foreach ($elements as $element)
                     {{-- "Three Dots" Separator --}}
                     @if (is_string($element))
-                        <span aria-disabled="true">
+                        <span aria-disabled="true" class="size-10">
                             <span
                                 class="text-gray-700 border-gray-300 dark:bg-gray-800 dark:border-gray-600 relative -ml-px inline-flex size-10 cursor-default items-center justify-center rounded-full border border-neutral-500 bg-whiten text-sm font-bold leading-5 shadow-sm hover:border-primary"
                             >
@@ -57,7 +61,7 @@
                     @if (is_array($element))
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
-                                <span aria-current="page">
+                                <span aria-current="page" class="size-10">
                                     <span
                                         class="text-gray-500 border-gray-300 dark:bg-gray-800 dark:border-gray-600 relative -ml-px inline-flex size-10 cursor-default items-center justify-center rounded-full border border-primary bg-primary bg-opacity-85 text-sm font-bold leading-5 text-white shadow-sm"
                                     >
@@ -95,7 +99,11 @@
                         </svg>
                     </a>
                 @else
-                    <span aria-disabled="true" aria-label="{{ __('pagination.next') }}">
+                    <span
+                        aria-disabled="true"
+                        aria-label="{{ __('pagination.next') }}"
+                        class="size-10"
+                    >
                         <span
                             class="text-gray-500 border-gray-300 dark:bg-gray-800 dark:border-gray-600 relative inline-flex size-10 cursor-default items-center justify-center rounded-full border border-neutral-500 bg-whiten text-sm font-bold leading-5 opacity-50 shadow-sm"
                             aria-hidden="true"
