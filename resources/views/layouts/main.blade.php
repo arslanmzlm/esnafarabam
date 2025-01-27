@@ -4,6 +4,12 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ \App\Services\SettingService::getSrc('logo_favicon') }}"
+        />
+
         <!-- prettier-ignore -->
         <title>{{ \App\Services\SettingService::get('site_title', config('app.name', 'Laravel')) }}</title>
 

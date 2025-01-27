@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {Link, usePage} from '@inertiajs/vue3';
 import {onClickOutside} from '@vueuse/core';
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 import {useSidebarStore} from '@/Stores/sidebar';
 import BuildingIcon from '@/Icons/BuildingIcon.vue';
 import CarIcon from '@/Icons/CarIcon.vue';
@@ -25,6 +25,10 @@ const sidebarStore = useSidebarStore();
 const target = ref(null);
 onClickOutside(target, () => {
     sidebarStore.isSidebarOpen = false;
+});
+
+const logo = computed(() => {
+    return window.logo_dark;
 });
 
 const page = usePage();
@@ -287,7 +291,7 @@ const menuGroups = ref<MenuRow[]>(menu);
         <!-- SIDEBAR HEADER -->
         <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
             <Link :href="route('admin.dashboard')">
-                <img alt="Logo" src="@/Images/logo/logo.png" />
+                <img :src="logo" alt="Logo" />
             </Link>
 
             <button class="block lg:hidden" @click="sidebarStore.isSidebarOpen = false">

@@ -41,6 +41,8 @@ return [
         'created' => 'Kullanıcı başarıyla oluşturuldu.',
         'updated' => 'Kullanıcı başarıyla düzenlendi.',
         'deleted' => 'Kullanıcı başarıyla silindi.',
+        'approved' => 'Kullanıcı başarıyla onaylandı.',
+        'not_approved' => 'Kullanıcı onaylanırken hata oluştu.',
         'info_updated' => 'Kullanıcı başarıyla güncellendi.',
         'password_updated' => 'Şifre başarıyla güncellendi.',
         'profile_updated' => 'Profil başarıyla güncellendi.',
@@ -54,5 +56,18 @@ return [
         'created' => 'Taşıt başarıyla oluşturuldu.',
         'updated' => 'Taşıt başarıyla düzenlendi.',
         'deleted' => 'Taşıt başarıyla silindi.',
+    ],
+    'banner' => [
+        'created' => 'Banner başarıyla oluşturuldu.',
+        'updated' => 'Banner başarıyla düzenlendi.',
+        'deleted' => 'Banner başarıyla silindi.',
+    ],
+    'page' => [
+        'created' => 'Sayfa başarıyla oluşturuldu.',
+        'updated' => 'Sayfa başarıyla düzenlendi.',
+        'deleted' => 'Sayfa başarıyla silindi.',
+    ],
+    'setting' => [
+        'updated' => 'Site ayarları başarıyla düzenlendi.',
     ],
 ];

@@ -24,6 +24,7 @@ class Attribute extends Model
         'active' => 'boolean',
         'input' => AttributeInput::class,
         'required' => 'boolean',
+        'hidden' => 'boolean'
     ];
 
     protected $appends = ['input_label'];

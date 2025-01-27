@@ -18,6 +18,10 @@ function logout() {
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
+
+const icon = computed(() => {
+    return window.logo_icon;
+});
 </script>
 
 <template>
@@ -35,7 +39,7 @@ const user = computed(() => page.props.auth.user);
             </span>
 
             <span class="h-12 w-12 rounded-full">
-                <img alt="User" class="w-full" src="@/Images/logo/logo-icon.png" />
+                <img :src="icon" alt="User" class="w-full" />
             </span>
 
             <svg

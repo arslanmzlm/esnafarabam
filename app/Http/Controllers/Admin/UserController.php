@@ -83,7 +83,7 @@ class UserController extends Controller
         if ($approve) {
             session()->flash('toast.success', trans('messages.user.approved'));
         } else {
-            session()->flash('toast.false', trans('messages.user.not_approved'));
+            session()->flash('toast.error', trans('messages.user.not_approved'));
         }
 
         return back();
